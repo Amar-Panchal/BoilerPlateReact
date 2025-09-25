@@ -1,9 +1,8 @@
-// webpack.config.js
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.js',
+  entry: './src/index.tsx', // or './src/index.js' if you haven't converted index yet
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
@@ -20,24 +19,23 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.(js|jsx|ts|tsx)$/,
         include: path.resolve(__dirname, 'src'),
+        exclude: /node_modules/,
         use: 'babel-loader',
       },
-      // CSS
       {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
-      // Assets (SVG, images) — using file-loader as you have it installed
       {
         test: /\.(png|svg|jpg|jpeg|gif)$/i,
-        use: ['file-loader'],
+        type: 'asset/resource',
       },
     ],
   },
   resolve: {
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
