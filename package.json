@@ -28,13 +28,11 @@
     "typescript": "^5.9.2",
     "webpack": "^5.101.3",
     "webpack-cli": "^6.0.1",
-    "webpack-dev-server": "^5.2.2"
+    "webpack-dev-server": "^4.15.2"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
-    "@mui/material": "^7.3.2",
-    "@mui/styled-engine-sc": "^7.3.2",
-    "styled-components": "^6.1.19"
+    "@mui/material": "^7.3.2"
   }
 }

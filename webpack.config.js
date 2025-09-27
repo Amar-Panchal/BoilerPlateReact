@@ -2,19 +2,29 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './src/index.tsx', // or './src/index.js' if you haven't converted index yet
+  entry: './src/index.tsx',
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'build'),
     clean: true,
     publicPath: '/',
   },
   devServer: {
-    static: './public',
+    static: [
+      {
+        directory: path.join(__dirname, 'public'),
+        publicPath: '/',
+      },
+      {
+        directory: path.join(__dirname, 'build'),
+        publicPath: '/',
+      },
+    ],
     port: 3000,
     open: true,
     hot: true,
     historyApiFallback: true,
+    compress: true,
   },
   module: {
     rules: [
@@ -22,7 +32,16 @@ module.exports = {
         test: /\.(js|jsx|ts|tsx)$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              '@babel/preset-env',
+              '@babel/preset-react',
+              '@babel/preset-typescript',
+            ],
+          },
+        },
       },
       {
         test: /\.css$/i,
